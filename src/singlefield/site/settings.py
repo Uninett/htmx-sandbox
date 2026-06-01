@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     # Our stuff
     'singlefield.app',
+    'singlefield.fbv',
 ]
 
 ROOT_URLCONF = 'singlefield.site.urls'

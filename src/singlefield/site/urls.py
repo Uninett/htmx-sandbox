@@ -7,5 +7,6 @@ from . import views
 
 urlpatterns = [
     path('books/', include('singlefield.app.urls')),
+    path('funcbooks/', include('singlefield.fbv.urls')),
     path('', views.HomePageView.as_view()),
 ] + debug_toolbar_urls()

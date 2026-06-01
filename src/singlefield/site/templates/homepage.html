@@ -2,6 +2,7 @@
 {% block main %}
     <!-- homepage.html -->
     <nav>
+        <h2>Class based views</h2>
         <ul>
             <li>
                 <a href="{% url "book-list" %}">Old fashioned book list</a>
@@ -14,6 +15,21 @@
             </li>
             <li>
                 <a href="{% url "book-list4" %}">Newfangled book list, with HTMx Boost!</a>
+            </li>
+        </ul>
+        <h2>Function based views</h2>
+        <ul>
+            <li>
+                <a href="{% url "fbv-book-list" %}">Old fashioned book list</a>
+            </li>
+            <li>
+                <a href="{% url "fbv-book-list2" %}">Newfangled book list</a>
+            </li>
+            <li>
+                <a href="{% url "fbv-book-list3" %}">Newfangled book list, with HTMx!</a>
+            </li>
+            <li>
+                <a href="{% url "fbv-book-list4" %}">Newfangled book list, with HTMx boost!</a>
             </li>
         </ul>
     </nav>
