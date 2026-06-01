@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block main %}
+    <!-- singlefield_app/book_form2.html -->
+    <form method="post">
+        <dl>
+            {% for form in forms.values %}{{ form }}{% endfor %}
+            <input type="submit">
+        </dl>
+    </form>
+{% endblock main %}

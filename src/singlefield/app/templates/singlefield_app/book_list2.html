@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load app %}
+{% block main %}
+    <!-- singlefield_app/book_list2.html -->
+    <p>
+        <a href="{% url "book-new2" %}">+ Add one!</a>
+    </p>
+    {% for object in object_list %}
+        <section id="book-{{ object.id }}">
+            <h2 id="field-{{ object.id }}-title">
+                {{ object.title }}
+                <a href="{% url 'book-edit-field' pk=object.pk fieldname='title' %}">Edit</a>
+            </h2>
+            <dl>
+                <dt id="field-{{ object.id }}-author">Author</dt>
+                <dd>
+                    {{ object.author }}
+                    <a href="{% url 'book-edit-field' pk=object.pk fieldname='author' %}">Edit</a>
+                </dd>
+                <dt id="field-{{ object.id }}-year">Year</dt>
+                <dd>
+                    {{ object.year }}
+                    <a href="{% url 'book-edit-field' pk=object.pk fieldname='year' %}">Edit</a>
+                </dd>
+            </dl>
+            <section>
+                <fieldset>
+                    <legend>Stored as JSON</legend>
+                    <dl>
+                        {% for fieldname in misc %}
+                            <dt id="field-{{ object.id }}-{{ fieldname }}">{{ fieldname.title }}</dt>
+                            <dd>
+                                {% if fieldname in object.misc %}{{ object.misc|by_key:fieldname|default_if_none:"–" }}{% endif %}
+                                <a href="{% url 'book-edit-field' pk=object.pk fieldname=fieldname %}">Edit</a>
+                            </dd>
+                        {% endfor %}
+                        {% for key, value in object.misc.items %}
+                            {% if not key in misc %}
+                                <dt>{{ key }}</dt>
+                                <dd>
+                                    {{ value|default_if_none:"–" }}
+                                </dd>
+                            {% endif %}
+                        {% endfor %}
+                    </dl>
+                </fieldset>
+            </section>
+            <p>
+                <a href="{% url "book-delete2" pk=object.pk %}">Delete</a>
+            </p>
+        </section>
+    {% endfor %}
+{% endblock main %}

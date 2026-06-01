@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block main %}
+    <!-- homepage.html -->
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url "book-list" %}">Old fashioned book list</a>
+            </li>
+            <li>
+                <a href="{% url "book-list2" %}">Newfangled book list</a>
+            </li>
+            <li>
+                <a href="{% url "book-list3" %}">Newfangled book list, with HTMx!</a>
+            </li>
+            <li>
+                <a href="{% url "book-list4" %}">Newfangled book list, with HTMx Boost!</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock main %}

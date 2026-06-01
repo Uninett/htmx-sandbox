@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load app %}
+{% block main %}
+    <!-- singlefield_app/book_list2.html -->
+    <p>
+        <a href="{% url "book-new" %}">+ Add one!</a>
+    </p>
+    {% for object in object_list %}
+        <section id="book-{{ object.id }}">
+            <h2 id="field-{{ object.id }}-title">
+                {{ object.title }}
+            </h2>
+            <dl>
+                <dt id="field-{{ object.id }}-author">Author</dt>
+                <dd>
+                    {{ object.author }}
+                </dd>
+                <dt id="field-{{ object.id }}-year">Year</dt>
+                <dd>
+                    {{ object.year }}
+                </dd>
+            </dl>
+            <section>
+                <fieldset>
+                    <legend>Stored as JSON</legend>
+                    <dl>
+                        {% for fieldname in misc %}
+                            {% if fieldname in object.misc %}
+                                {% with object.misc|by_key:fieldname as value %}
+                                    <dt>
+                                        {{ fieldname.title }}<a id="field-{{ object.id }}-{{ fieldname }}"></a>
+                                    </dt>
+                                    <dd>
+                                        {{ value|default_if_none:"–" }}
+                                    </dd>
+                                {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for key, value in object.misc.items %}
+                            {% if not key in misc %}
+                                <dt>{{ key }}</dt>
+                                <dd>
+                                    {{ value|default_if_none:"–" }}
+                                </dd>
+                            {% endif %}
+                        {% endfor %}
+                    </dl>
+                </fieldset>
+            </section>
+            <p>
+                <a href="{% url "book-edit" pk=object.pk %}">Edit</a>
+                <a href="{% url "book-delete" pk=object.pk %}">Delete</a>
+            </p>
+        </section>
+    {% endfor %}
+{% endblock main %}

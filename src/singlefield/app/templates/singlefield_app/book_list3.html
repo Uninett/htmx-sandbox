@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load app %}
+{% block main %}
+    <!-- singlefield_app/book_list3.html -->
+    <p>
+        <a href="{% url "book-new3" %}">+ Add one!</a>
+    </p>
+    {% for object in object_list %}
+        <section id="book-{{ object.id }}">
+            <h2 id="field-{{ object.id }}-title">
+                {{ object.title }}
+                <button hx-get="{% url 'book-edit-field3' pk=object.pk fieldname='title' %}"
+                        hx-swap="innerHTML show:unset"
+                        hx-target="closest h2">Edit</button>
+            </h2>
+            <dl>
+                <dt id="field-{{ object.id }}-author">Author</dt>
+                <dd>
+                    {{ object.author }}
+                    <button hx-get="{% url 'book-edit-field3' pk=object.pk fieldname='author' %}"
+                            hx-target="closest dd">Edit</button>
+                </dd>
+                <dt id="field-{{ object.id }}-year">Year</dt>
+                <dd>
+                    {{ object.year }}
+                    <button hx-get="{% url 'book-edit-field3' pk=object.pk fieldname='year' %}"
+                            hx-target="closest dd">Edit</button>
+                </dd>
+            </dl>
+            <section>
+                <fieldset>
+                    <legend>Stored as JSON</legend>
+                    <dl>
+                        {% for fieldname in misc %}
+                            <dt id="field-{{ object.id }}-{{ fieldname }}">{{ fieldname.title }}</dt>
+                            <dd>
+                                {% if fieldname in object.misc %}{{ object.misc|by_key:fieldname|default_if_none:"–" }}{% endif %}
+                                <button hx-get="{% url 'book-edit-field3' pk=object.pk fieldname=fieldname %}"
+                                        hx-swap="innerHTML show:unset"
+                                        hx-target="closest dd">Edit</button>
+                            </dd>
+                        {% endfor %}
+                        {% for key, value in object.misc.items %}
+                            {% if not key in misc %}
+                                <dt>{{ key }}</dt>
+                                <dd>
+                                    {{ value|default_if_none:"–" }}
+                                </dd>
+                            {% endif %}
+                        {% endfor %}
+                    </dl>
+                </fieldset>
+            </section>
+            <p>
+                <a href="{% url "book-delete3" pk=object.pk %}">Delete</a>
+            </p>
+        </section>
+    {% endfor %}
+{% endblock main %}

@@ -1,0 +1,44 @@
+<!-- base.html -->
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+    <style>
+body {
+  display: flex;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 1em;
+  width: 60rem;
+}
+main > * {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+main > section {
+  border: 1px solid black;
+}
+h1 { margin: 0; padding: 1rem;}
+dt {
+    font-weight: bold;
+}
+dd {
+  margin-bottom: 1rem;
+  margin-left: 0;
+}
+.singlefield {
+  display: flex;
+  flex-direction: row;
+}
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Singlefield DEMO site{{ page_title }}</h1>
+        {{ view.show_breadcrumbs|safe }}
+        {% block main %}
+        {% endblock main %}
+    </main>
+</body>

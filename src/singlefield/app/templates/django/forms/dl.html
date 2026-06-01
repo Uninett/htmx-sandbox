@@ -1,0 +1,30 @@
+{% if errors %}
+    <dt>Errors</dt>
+    <dd>
+        {{ errors }}
+        {% if not fields %}
+            {% for field in hidden_fields %}{{ field }}{% endfor %}
+        {% endif %}
+    </dd>
+{% endif %}
+{% for field, errors in fields %}
+    <dt {% with classes=field.css_classes %}
+        {% if classes %}class="{{ classes }}"{% endif %}
+        {% endwith %}>
+        {{ errors }}
+        {% if field.label %}{{ field.label }}{% endif %}
+    </dt>
+    <dd>
+        {{ field }}
+        {% if field.help_text %}
+            <span class="helptext"
+                  {% if field.auto_id %}id="{{ field.auto_id }}_helptext"{% endif %}>{{ field.help_text|safe }}</span>
+        {% endif %}
+        {% if forloop.last %}
+            {% for field in hidden_fields %}{{ field }}{% endfor %}
+        {% endif %}
+    </dd>
+{% endfor %}
+{% if not fields and not errors %}
+    {% for field in hidden_fields %}{{ field }}{% endfor %}
+{% endif %}
