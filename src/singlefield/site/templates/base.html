@@ -32,13 +32,19 @@ dd {
   display: flex;
   flex-direction: row;
 }
+#back-to-top {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+}
     </style>
 </head>
-<body>
+<body id="top">
     <main>
         <h1>Singlefield DEMO site{{ page_title }}</h1>
         {{ view.show_breadcrumbs|safe }}
         {% block main %}
         {% endblock main %}
     </main>
+    <a id="back-to-top" href="#top">Back to top</a>
 </body>
