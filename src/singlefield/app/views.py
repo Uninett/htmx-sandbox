@@ -284,10 +284,15 @@ class HTMxGetSingleFieldUpdateBookView(HTMxGetSingleFieldMixin, SingleFieldUpdat
     template_name = 'singlefield_app/book_edit.html'
 
     def get_fragment(self):
+        "Redirect to start of book"
         object = self.get_object()
+        return f"book-{ object.id }"
+
+#     def get_fragment(self):
+#         "Redirect to field"
+#         object = self.get_object()
 #         fieldname = self.kwargs['fieldname']
 #         return f"field-{ object.id }-{ fieldname }"
-        return f"book-{ object.id }"
 
     def get_success_url(self):
         url = reverse(self.success_url, fragment=self.get_fragment())
