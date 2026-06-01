@@ -30,7 +30,7 @@
                     <dt id="field-{{ object.id }}-{{ fieldname }}">{{ fieldname.title }}</dt>
                     <dd>
                         {% if fieldname in object.misc %}{{ object.misc|by_key:fieldname|default_if_none:"–" }}{% endif %}
-                        <button hx-get="{% url view.links.book_get_field pk=object.pk fieldname=fieldname %}"
+                        <button hx-post="{% url view.links.book_get_field pk=object.pk fieldname=fieldname %}"
                                 hx-swap="innerHTML show:unset"
                                 hx-target="closest dd">Edit</button>
                     </dd>

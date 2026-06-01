@@ -353,6 +353,9 @@ class HTMxGetSingleFieldBookFieldView(
     HTMxGetSingleFieldMixin, BaseSingleFieldBookFieldView
 ):
     template_name = 'singlefield_app/_book_field_form.html'
+    http_method_names = ['get', 'post', 'head', 'options', 'trace']
+
+    post = get
 
 
 class HTMxBoostSingleFieldBookFieldView(
