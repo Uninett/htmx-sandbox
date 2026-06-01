@@ -74,21 +74,49 @@ class ConvenienceMixin(BreadcrumbMixin):
 class ClassicMixin:
     subtype: str = 'multifield'
     success_url = 'book-list'
+    edit_url = 'book-edit'
+    links = {
+        'book_create': 'book-create',
+        "book_delete": "book-delete",
+        "book_edit": edit_url,
+        "book_new": "book-new",
+    }
 
 
 class SingleFieldMixin:
     subtype: str = 'singlefield'
     success_url = 'book-list2'
+    links = {
+        'book_create': 'book-create2',
+        "book_delete": "book-delete2",
+        "book_edit": 'book-edit2',
+        'book_get_field': 'book-edit-field2',
+        "book_new": "book-new2",
+    }
 
 
 class HTMxGetSingleFieldMixin:
     subtype: str = 'singlefield-htmx-get'
     success_url = 'book-list3'
+    links = {
+        'book_create': 'book-create3',
+        "book_delete": "book-delete3",
+        "book_edit": 'book-edit3',
+        'book_get_field': 'book-edit-field3',
+        "book_new": "book-new3",
+    }
 
 
 class HTMxBoostSingleFieldMixin:
     subtype: str = 'singlefield-htmx-boost'
     success_url = 'book-list4'
+    links = {
+        'book_create': 'book-create4',
+        "book_delete": "book-delete4",
+        "book_edit": 'book-edit4',
+        'book_get_field': 'book-edit-field4',
+        "book_new": "book-new4",
+    }
 
 
 # list views, detail views skipped
@@ -202,28 +230,29 @@ class HTMxBoostSingleFieldDeleteBookView(HTMxBoostSingleFieldMixin, SingleFieldD
         return self.add_final_breadcrumb(breadcrumb)
 
 
-# update views
+# update view (multifield only)
 
 
 class UpdateBookView(ClassicMixin, ConvenienceMixin, UpdateView):
     model = Book
     form_class = BookForm
-    edit_view = 'book-edit'
 
     def get_breadcrumbs(self):
         super().get_breadcrumbs()
         breadcrumb = (
-            reverse(self.edit_view, kwargs={'pk': self.kwargs['pk']}),
+            reverse(self.edit_url, kwargs={'pk': self.kwargs['pk']}),
             'Edit',
         )
         return self.add_final_breadcrumb(breadcrumb)
+
+
+# Update field views
 
 
 class SingleFieldUpdateBookView(SingleFieldMixin, ConvenienceMixin, UpdateView):
     model = Book
     fields = '__all__'
     template_name = 'singlefield_app/book_edit.html'
-    edit_view = 'book-edit2'
 
     def get_forms(self):
         instance = self.get_object()
@@ -253,7 +282,6 @@ class SingleFieldUpdateBookView(SingleFieldMixin, ConvenienceMixin, UpdateView):
 
 class HTMxGetSingleFieldUpdateBookView(HTMxGetSingleFieldMixin, SingleFieldUpdateBookView):
     template_name = 'singlefield_app/book_edit.html'
-    edit_view = 'book-edit3'
 
     def get_fragment(self):
         object = self.get_object()
@@ -269,7 +297,6 @@ class HTMxGetSingleFieldUpdateBookView(HTMxGetSingleFieldMixin, SingleFieldUpdat
 
 class HTMxBoostSingleFieldUpdateBookView(HTMxBoostSingleFieldMixin, SingleFieldUpdateBookView):
     template_name = 'singlefield_app/book_edit.html'
-    edit_view = 'book-edit4'
 
 
 # the magic extra views for rendering the field template
@@ -286,7 +313,7 @@ class SingleFieldBookFieldView(SingleFieldMixin, ConvenienceMixin, DetailView):
         super().get_breadcrumbs()
         breadcrumb = (
             reverse(
-                'book-edit-field',
+                'book-edit-field2',
                 kwargs={
                     'pk': self.kwargs['pk'],
                     'fieldname' : self.kwargs['fieldname']},
@@ -309,8 +336,8 @@ class SingleFieldBookFieldView(SingleFieldMixin, ConvenienceMixin, DetailView):
 
 
 class HTMxGetSingleFieldBookFieldView(HTMxGetSingleFieldMixin, SingleFieldBookFieldView):
-    template_name = 'singlefield_app/_get_book_field_form.html'
+    template_name = 'singlefield_app/_book_field_form.html'
 
 
 class HTMxBoostSingleFieldBookFieldView(HTMxBoostSingleFieldMixin, SingleFieldBookFieldView):
-    template_name = 'singlefield_app/_boost_book_field_form.html'
+    template_name = 'singlefield_app/_book_field_form.html'

@@ -12,7 +12,7 @@ multifield = [
 singlefield = [
     path('new/', views.SingleFieldCreateBookView.as_view(), name='book-new2'),
     path('<int:pk>/delete/', views.SingleFieldDeleteBookView.as_view(), name='book-delete2'),
-    path('<int:pk>/<str:fieldname>/', views.SingleFieldBookFieldView.as_view(), name='book-edit-field'),
+    path('<int:pk>/<str:fieldname>/', views.SingleFieldBookFieldView.as_view(), name='book-edit-field2'),
     path('<int:pk>/<str:fieldname>/update/', views.SingleFieldUpdateBookView.as_view(), name='book-edit2'),
     path('', views.SingleFieldListBookView.as_view(), name='book-list2'),
 ]

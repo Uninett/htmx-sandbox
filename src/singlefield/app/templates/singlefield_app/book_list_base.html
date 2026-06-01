@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load app %}
+{% block main %}
+    <!-- singlefield_app/book_list_base.html -->
+    <p>
+        <a href="{% url view.links.book_new %}">+ Add one!</a>
+    </p>
+    {% for object in object_list %}
+        <section id="book-{{ object.id }}">
+            {% block book %}
+            {% endblock book %}
+            <p>
+                {% if view.edit_url %}
+                    <a href="{% url view.edit_url pk=object.pk %}">Edit</a>
+                {% endif %}
+                <a href="{% url view.links.book_delete pk=object.pk %}">Delete</a>
+            </p>
+        </section>
+    {% endfor %}
+{% endblock main %}

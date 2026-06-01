@@ -1,0 +1,7 @@
+<!-- singlefield_app/_book_field_form.html -->
+<form class="singlefield"
+      method="post"
+      action="{% url view.links.book_edit pk=object.pk fieldname=fieldname %}">
+    {{ form.get_field }}
+    <input type="submit" value="Save">
+</form>

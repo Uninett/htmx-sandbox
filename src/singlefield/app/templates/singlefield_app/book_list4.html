@@ -1,64 +1,57 @@
-{% extends "base.html" %}
+{% extends "./book_list_base.html" %}
 {% load app %}
 {% block main %}
-    <!-- singlefield_app/book_list4.html -->
     <script>htmx.config.scrollIntoViewOnBoost = false</script>
-    <p>
-        <a href="{% url "book-new4" %}">+ Add one!</a>
-    </p>
-    {% for object in object_list %}
-        <section id="book-{{ object.id }}">
-            <h2 hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
-                {{ object.title }}
-                <a id="field-{{ object.id }}-title"></a>
-                <a href="{% url 'book-edit-field4' pk=object.pk fieldname='title' %}"
-                    {# hx-push-url="false" #}
-                hx-target="closest h2">Edit</a>
-            </h2>
-            <dl>
-                <dt id="field-{{ object.id }}-author">Author</dt>
-                <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
-                    {{ object.author }}
-                    <a href="{% url 'book-edit-field4' pk=object.pk fieldname='author' %}"
-                        {# hx-push-url="false" #}
-                    hx-target="closest dd">Edit</a>
-                </dd>
-                <dt id="field-{{ object.id }}-year">Year</dt>
-                <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
-                    {{ object.year }}
-                    <a href="{% url 'book-edit-field4' pk=object.pk fieldname='year' %}"
-                        {# hx-push-url="false" #}
-                    hx-target="closest dd">Edit</a>
-                </dd>
-            </dl>
-            <section>
-                <fieldset>
-                    <legend>Stored as JSON</legend>
-                    <dl>
-                        {% for fieldname in misc %}
-                            <dt id="field-{{ object.id }}-{{ fieldname }}">{{ fieldname.title }}</dt>
-                            <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
-                                {% if fieldname in object.misc %}{{ object.misc|by_key:fieldname|default_if_none:"–" }}{% endif %}
-                                <a href="{% url 'book-edit-field4' pk=object.pk fieldname=fieldname %}"
-                                    {# hx-push-url="false" #}
-                                    hx-target="closest dd"
-                                >Edit</a>
-                            </dd>
-                        {% endfor %}
-                        {% for key, value in object.misc.items %}
-                            {% if not key in misc %}
-                                <dt>{{ key }}</dt>
-                                <dd>
-                                    {{ value|default_if_none:"–" }}
-                                </dd>
-                            {% endif %}
-                        {% endfor %}
-                    </dl>
-                </fieldset>
-            </section>
-            <p>
-                <a href="{% url "book-delete4" pk=object.pk %}">Delete</a>
-            </p>
-        </section>
-    {% endfor %}
+    {{ block.super }}
 {% endblock main %}
+{% block book %}
+    <!-- singlefield_app/book_list4.html -->
+    <h2 hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
+        {{ object.title }}
+        <a id="field-{{ object.id }}-title"></a>
+        <a href="{% url view.links.book_get_field pk=object.pk fieldname='title' %}"
+            {# hx-push-url="false" #}
+        hx-target="closest h2">Edit</a>
+    </h2>
+    <dl>
+        <dt id="field-{{ object.id }}-author">Author</dt>
+        <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
+            {{ object.author }}
+            <a href="{% url view.links.book_get_field pk=object.pk fieldname='author' %}"
+                {# hx-push-url="false" #}
+            hx-target="closest dd">Edit</a>
+        </dd>
+        <dt id="field-{{ object.id }}-year">Year</dt>
+        <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
+            {{ object.year }}
+            <a href="{% url view.links.book_get_field pk=object.pk fieldname='year' %}"
+                {# hx-push-url="false" #}
+            hx-target="closest dd">Edit</a>
+        </dd>
+    </dl>
+    <section>
+        <fieldset>
+            <legend>Stored as JSON</legend>
+            <dl>
+                {% for fieldname in misc %}
+                    <dt id="field-{{ object.id }}-{{ fieldname }}">{{ fieldname.title }}</dt>
+                    <dd hx-boost="true" {# hx-swap="innerHTML show:unset" #}>
+                        {% if fieldname in object.misc %}{{ object.misc|by_key:fieldname|default_if_none:"–" }}{% endif %}
+                        <a href="{% url view.links.book_get_field pk=object.pk fieldname=fieldname %}"
+                            {# hx-push-url="false" #}
+                            hx-target="closest dd"
+                        >Edit</a>
+                    </dd>
+                {% endfor %}
+                {% for key, value in object.misc.items %}
+                    {% if not key in misc %}
+                        <dt>{{ key }}</dt>
+                        <dd>
+                            {{ value|default_if_none:"–" }}
+                        </dd>
+                    {% endif %}
+                {% endfor %}
+            </dl>
+        </fieldset>
+    </section>
+{% endblock book %}

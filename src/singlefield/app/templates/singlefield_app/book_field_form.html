@@ -3,7 +3,7 @@
     <!-- singlefield_app/book_field_form.html -->
     <form class="singlefield"
           method="post"
-          action="{% url 'book-edit2' pk=object.pk fieldname=fieldname %}">
+          action="{% url view.links.book_edit pk=object.pk fieldname=fieldname %}">
         {{ form }}
         <input type="submit" value="Save">
     </form>
