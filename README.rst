@@ -11,7 +11,7 @@ HTMx sandkasse
    $ pip install -e .
 4. Lag sqlite databasen::
 
-   $ python manage.py makemigrations
+   $ python manage.py migrate
 5. Kjør opp sandkasse-siten::
 
    $ python3 manage.py runserver
