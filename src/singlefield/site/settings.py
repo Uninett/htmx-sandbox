@@ -20,11 +20,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django's included apps
+    'django.contrib.staticfiles',
     'django.forms',
 
+    # 3rd party Django apps
+    'debug_toolbar',
+
+    # Our stuff
     'singlefield.app',
 ]
-
 
 ROOT_URLCONF = 'singlefield.site.urls'
 
@@ -67,6 +72,12 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Minimal middleware
+
+MIDDLEWARE = [
+    "django.middleware.common.CommonMiddleware",
+]
+
 # Logging
 
 LOGGING = {
@@ -82,3 +93,14 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+# For django-debug-toolbar
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+
+STATIC_URL = "static/"
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
