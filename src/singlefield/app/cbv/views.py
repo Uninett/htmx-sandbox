@@ -7,7 +7,6 @@ from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
-from django.forms import ModelForm
 
 from singlefield.app.models import Book
 from singlefield.app.forms import BookForm, SingleFieldFormMixin
@@ -65,7 +64,7 @@ class ConvenienceMixin(BreadcrumbMixin):
         return self.add_final_breadcrumb(breadcrumb)
 
     def add_final_breadcrumb(self, breadcrumb):
-        if self.subtype in breadcrumb[0] and not breadcrumb in self.breadcrumbs:
+        if self.subtype in breadcrumb[0] and breadcrumb not in self.breadcrumbs:
             self.breadcrumbs.append(breadcrumb)
         return self.breadcrumbs
 
@@ -259,7 +258,7 @@ class SingleFieldUpdateBookView(SingleFieldMixin, ConvenienceMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         forms = self.get_forms()
-        return super().get_context_data(**kwargs)
+        return super().get_context_data(forms=forms, **kwargs)
 
     def post(self, request, *args, **kwargs):
         forms = self.get_forms()
@@ -328,7 +327,7 @@ class SingleFieldBookFieldView(SingleFieldMixin, ConvenienceMixin, DetailView):
 
     def get_forms(self):
         instance = self.get_object()
-        return get_forms(data=request.POST, obj=instance)
+        return get_forms(data=self.request.POST, obj=instance)
 
     def get_context_data(self, **kwargs):
         forms = get_forms(obj=self.object)
