@@ -318,23 +318,8 @@ class HTMxBoostSingleFieldUpdateBookView(
 # the magic extra views for rendering the field template
 
 
-class SingleFieldBookFieldView(SingleFieldMixin, ConvenienceMixin, DetailView):
+class BaseSingleFieldBookFieldView(ConvenienceMixin, DetailView):
     model = Book
-    template_name = 'singlefield_app/book_field_form.html'
-
-    def get_breadcrumbs(self):
-        # Only needed and used by "singlefield"
-        # Multifield doesn't use this view
-        # The two htmx views do not use this template
-        super().get_breadcrumbs()
-        breadcrumb = (
-            reverse(
-                'book-edit-field2',
-                kwargs={'pk': self.kwargs['pk'], 'fieldname': self.kwargs['fieldname']},
-            ),
-            'Edit field',
-        )
-        return self.add_final_breadcrumb(breadcrumb)
 
     def get_forms(self):
         instance = self.get_object()
@@ -349,13 +334,28 @@ class SingleFieldBookFieldView(SingleFieldMixin, ConvenienceMixin, DetailView):
         return context
 
 
+class SingleFieldBookFieldView(SingleFieldMixin, BaseSingleFieldBookFieldView):
+    template_name = 'singlefield_app/book_field_form.html'
+
+    def get_breadcrumbs(self):
+        super().get_breadcrumbs()
+        breadcrumb = (
+            reverse(
+                self.links['book_get_field'],
+                kwargs={'pk': self.kwargs['pk'], 'fieldname': self.kwargs['fieldname']},
+            ),
+            'Edit field',
+        )
+        return self.add_final_breadcrumb(breadcrumb)
+
+
 class HTMxGetSingleFieldBookFieldView(
-    HTMxGetSingleFieldMixin, SingleFieldBookFieldView
+    HTMxGetSingleFieldMixin, BaseSingleFieldBookFieldView
 ):
     template_name = 'singlefield_app/_book_field_form.html'
 
 
 class HTMxBoostSingleFieldBookFieldView(
-    HTMxBoostSingleFieldMixin, SingleFieldBookFieldView
+    HTMxBoostSingleFieldMixin, BaseSingleFieldBookFieldView
 ):
     template_name = 'singlefield_app/_book_field_form.html'
