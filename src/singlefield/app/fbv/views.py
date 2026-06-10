@@ -6,8 +6,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from singlefield.app.models import Book
 from singlefield.app.forms import BookForm, SingleFieldFormMixin
-
-from ..utils import show_breadcrumbs
+from singlefield.utils import show_breadcrumbs
 
 
 LOG = logging.getLogger(__name__)
