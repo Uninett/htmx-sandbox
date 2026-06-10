@@ -5,6 +5,7 @@ from .models import Book
 
 class BookForm(forms.ModelForm):
     template_name = 'django/forms/dl.html'
+
     class Meta:
         model = Book
         fields = '__all__'
@@ -20,7 +21,7 @@ class SingleFieldFormMixin:
 
 
 class BookTitleForm(SingleFieldFormMixin, forms.ModelForm):
-    fieldname = "title"
+    fieldname = 'title'
     json_backed = False
 
     class Meta:
@@ -29,7 +30,7 @@ class BookTitleForm(SingleFieldFormMixin, forms.ModelForm):
 
 
 class BookAuthorForm(SingleFieldFormMixin, forms.ModelForm):
-    fieldname = "author"
+    fieldname = 'author'
     json_backed = False
 
     class Meta:
@@ -38,7 +39,7 @@ class BookAuthorForm(SingleFieldFormMixin, forms.ModelForm):
 
 
 class BookYearForm(SingleFieldFormMixin, forms.ModelForm):
-    fieldname = "year"
+    fieldname = 'year'
     json_backed = False
 
     class Meta:
@@ -65,21 +66,21 @@ class JSONBackedMixin:
 
 
 class ReviewForm(JSONBackedMixin, SingleFieldFormMixin, forms.Form):
-    fieldname = "review"
+    fieldname = 'review'
     json_backed = True
 
     review = forms.CharField(widget=forms.Textarea, required=False)
 
 
 class TriviaForm(JSONBackedMixin, SingleFieldFormMixin, forms.Form):
-    fieldname = "trivia"
+    fieldname = 'trivia'
     json_backed = True
 
     trivia = forms.CharField(widget=forms.Textarea, required=False)
 
 
 class DiceThrowForm(JSONBackedMixin, SingleFieldFormMixin, forms.Form):
-    fieldname = "dice"
+    fieldname = 'dice'
     json_backed = True
 
     dice = forms.IntegerField(min_value=1, max_value=6, required=False)

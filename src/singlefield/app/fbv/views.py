@@ -38,7 +38,7 @@ def get_context_data(view_name, subtype, **kwargs):
     subtypename = subtype.subtype
     page_title = f': {subtypename}' if subtypename else ''
     misc = get_misc_fields()
-    LOG.info("Getting context for %s", view_name)
+    LOG.info('Getting context for %s', view_name)
     return dict(
         subtype=subtypename,
         page_title=page_title,
@@ -154,22 +154,30 @@ def _common_list_view(name, Subtype, template_name, request):
 
 @require_GET
 def list_view(request):
-    return _common_list_view('list_view', Classic, 'singlefield_app/book_list.html', request)
+    return _common_list_view(
+        'list_view', Classic, 'singlefield_app/book_list.html', request
+    )
 
 
 @require_GET
 def list_view2(request):
-    return _common_list_view('list_view2', SingleField, 'singlefield_app/book_list2.html', request)
+    return _common_list_view(
+        'list_view2', SingleField, 'singlefield_app/book_list2.html', request
+    )
 
 
 @require_GET
 def list_view3(request):
-    return _common_list_view('list_view3', HTMxGetSingleField, 'singlefield_app/book_list3.html', request)
+    return _common_list_view(
+        'list_view3', HTMxGetSingleField, 'singlefield_app/book_list3.html', request
+    )
 
 
 @require_GET
 def list_view4(request):
-    return _common_list_view('list_view4', HTMxBoostSingleField, 'singlefield_app/book_list4.html', request)
+    return _common_list_view(
+        'list_view4', HTMxBoostSingleField, 'singlefield_app/book_list4.html', request
+    )
 
 
 # create views
@@ -380,7 +388,9 @@ def update_view4(request, pk: int, fieldname: str):
 # the magic extra views for rendering the field template
 
 
-def _get_common_field_view(view_name, subtype, template_name, request, pk: int, fieldname: str):
+def _get_common_field_view(
+    view_name, subtype, template_name, request, pk: int, fieldname: str
+):
     book = get_object_or_404(Book, pk=pk)
     forms = get_forms(obj=book)
 
@@ -408,18 +418,24 @@ def get_field_view2(request, pk: int, fieldname: str):
     )
     subtype.add_final_breadcrumb(breadcrumb)
 
-    return _get_common_field_view('get_field_view2', subtype, template_name, request, pk, fieldname)
+    return _get_common_field_view(
+        'get_field_view2', subtype, template_name, request, pk, fieldname
+    )
 
 
 @require_GET
 def get_field_view3(request, pk: int, fieldname: str):
     subtype = HTMxGetSingleField()
     template_name = 'singlefield_app/_book_field_form.html'
-    return _get_common_field_view('get_field_view3', subtype, template_name, request, pk, fieldname)
+    return _get_common_field_view(
+        'get_field_view3', subtype, template_name, request, pk, fieldname
+    )
 
 
 @require_GET
 def get_field_view4(request, pk: int, fieldname: str):
     subtype = HTMxBoostSingleField()
     template_name = 'singlefield_app/_book_field_form.html'
-    return _get_common_field_view('get_field_view4', subtype, template_name, request, pk, fieldname)
+    return _get_common_field_view(
+        'get_field_view4', subtype, template_name, request, pk, fieldname
+    )

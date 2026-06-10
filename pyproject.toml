@@ -16,3 +16,8 @@ dependencies = [
 
 [project.urls]
 Home = "https://github.com/Uninett/singlefieldform"
+
+[tool.ruff]
+line-length = 88
+[tool.ruff.format]
+quote-style = "single"

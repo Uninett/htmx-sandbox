@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# fmt: off
 INSTALLED_APPS = [
     # Django's included apps
     'django.contrib.staticfiles',
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     # Our stuff
     'singlefield.app',
 ]
+# fmt: on
 
 ROOT_URLCONF = 'singlefield.site.urls'
 
@@ -75,29 +77,29 @@ USE_TZ = True
 # Minimal middleware
 
 MIDDLEWARE = [
-    "django.middleware.common.CommonMiddleware",
+    'django.middleware.common.CommonMiddleware',
 ]
 
 # Logging
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
-    "root": {
-        "handlers": ["console"],
-        "level": "DEBUG",
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
     },
 }
 
 # For django-debug-toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 
-STATIC_URL = "static/"
+STATIC_URL = 'static/'
 
 INTERNAL_IPS = [
     '127.0.0.1',
