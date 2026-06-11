@@ -1,6 +1,6 @@
-This is mean to be a collection of toys to play around with HTMx with.
+This is meant to be a collection of toys to play around with HTMx with.
 
 So far: one example: singlefield forms in Django (Python), with both
 class-based and functional views.
 
-Feel free to port the example to ther languages/frameworks.
+Feel free to port the example to other languages/frameworks.
