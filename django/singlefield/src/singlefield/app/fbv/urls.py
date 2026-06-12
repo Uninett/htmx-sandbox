@@ -13,7 +13,7 @@ singlefield = [
     path('new/', views.create_view2, name='fbv-book-new2'),
     path('<int:pk>/delete/', views.delete_view2, name='fbv-book-delete2'),
     path(
-        '<int:pk>/<str:fieldname>/', views.get_field_view2, name='fbv-book-edit-field'
+        '<int:pk>/<str:fieldname>/', views.get_field_view2, name='fbv-book-edit-field2'
     ),
     path('<int:pk>/<str:fieldname>/update/', views.update_view2, name='fbv-book-edit2'),
     path('', views.list_view2, name='fbv-book-list2'),
